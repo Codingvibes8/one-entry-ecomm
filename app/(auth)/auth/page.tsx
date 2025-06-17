@@ -10,15 +10,14 @@ import { useRouter} from 'next/navigation';
 
 
 
-function AuthForm() {
+export default function AuthForm() {
     const [isSignUp, setIsSignUp] = useState(true);
     const router = useRouter();
 
     // Toggles between signup and login forms.
     const toggleForm = () => {
         setIsSignUp(!isSignUp);
-        setError(null);
-        setInputValues({});
+
     };
 
     return (
