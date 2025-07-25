@@ -16,6 +16,13 @@ export async function getAllProducts(): Promise<Product[]> {
 }
 
 export async function getProductById(id: string): Promise<Product | null> {
+  // Validate UUID format
+  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+  if (!uuidRegex.test(id)) {
+    console.error("Invalid UUID format:", id)
+    return null
+  }
+
   const serverClient = createServerClient()
 
   const { data, error } = await serverClient.from("products").select("*").eq("id", id).single()
@@ -29,10 +36,17 @@ export async function getProductById(id: string): Promise<Product | null> {
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
-  // Extract ID from slug (format: "product-name-id")
-  const parts = slug.split("-")
-  const id = parts[parts.length - 1]
+  // Extract UUID from slug using regex pattern
+  // UUID format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+  const uuidRegex = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+  const match = slug.match(uuidRegex)
 
+  if (!match) {
+    console.error("No valid UUID found in slug:", slug)
+    return null
+  }
+
+  const id = match[0]
   return getProductById(id)
 }
 
@@ -151,11 +165,14 @@ export async function getProductByIdClient(id: string): Promise<Product | null> 
 
 // Utility functions
 export function generateProductSlug(product: Product): string {
-  return `${product.name
+  const nameSlug = product.name
     .toLowerCase()
     .replace(/[^a-z0-9 -]/g, "")
     .replace(/\s+/g, "-")
-    .replace(/-+/g, "-")}-${product.id}`
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "") // Remove leading/trailing hyphens
+
+  return `${nameSlug}-${product.id}`
 }
 
 export function getProductUrlFromSlug(slug: string): string {

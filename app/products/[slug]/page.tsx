@@ -11,20 +11,26 @@ interface ProductPageProps {
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
-  const product = await getProductBySlug(params.slug)
+  try {
+    const product = await getProductBySlug(params.slug)
 
-  if (!product) {
+    if (!product) {
+      console.log("Product not found for slug:", params.slug)
+      notFound()
+    }
+
+    const relatedProducts = await getRelatedProducts(product.id, product.category, product.subcategory)
+
+    return (
+      <div className="min-h-screen bg-white">
+        <ProductDetailClient product={product} />
+        <RelatedProducts products={relatedProducts} />
+      </div>
+    )
+  } catch (error) {
+    console.error("Error loading product page:", error)
     notFound()
   }
-
-  const relatedProducts = await getRelatedProducts(product.id, product.category, product.subcategory)
-
-  return (
-    <div className="min-h-screen bg-white">
-      <ProductDetailClient product={product} />
-      <RelatedProducts products={relatedProducts} />
-    </div>
-  )
 }
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
@@ -74,9 +80,11 @@ export async function generateStaticParams() {
   try {
     const products = await getAllProducts()
 
-    return products.map((product) => ({
-      slug: generateProductSlug(product),
-    }))
+    return products.map((product) => {
+      const slug = generateProductSlug(product)
+      console.log(`Generated slug for ${product.name}: ${slug}`)
+      return { slug }
+    })
   } catch (error) {
     console.error("Error generating static params:", error)
     return []
