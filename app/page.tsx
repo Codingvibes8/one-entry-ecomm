@@ -2,8 +2,32 @@ import Link from "next/link"
 import HeroSection from "@/components/hero-section"
 import FeaturedProducts from "@/components/featured-products"
 import { getFeaturedProducts } from "@/lib/products"
+import { isSupabaseConfigured } from "@/lib/supabase"
 
 export default async function HomePage() {
+  if (!isSupabaseConfigured) {
+    return (
+      <div className="min-h-screen">
+        <HeroSection />
+        <div className="py-20 bg-gray-900 text-white">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-4xl font-bold mb-6">Database Setup Required</h2>
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
+              Please run the database setup scripts to see featured products.
+            </p>
+            <div className="bg-gray-800 p-6 rounded-lg max-w-2xl mx-auto">
+              <p className="text-left text-sm text-gray-400">
+                1. Run the SQL scripts in the /scripts folder
+                <br />
+                2. Make sure your Supabase integration is properly configured
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   const featuredProducts = await getFeaturedProducts()
 
   return (
