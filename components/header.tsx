@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { ShoppingCart, Search, Menu, User, X, BadgeEuro } from "lucide-react"
+import { ShoppingCart, Search, Menu, User, X, Euro } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { useCart } from "@/hooks/use-cart"
@@ -33,7 +33,7 @@ export default function Header() {
         <div className="container mx-auto px-4">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center space-x-2">
-              <BadgeEuro className="h-8 w-8 text-blue-800" />
+              <Euro className="h-8 w-8 text-blue-800" />
               <span className="font-bold text-xl font-sans text-blue-800">Stride & Style</span>
             </div>
             <div className="flex items-center space-x-4">
@@ -53,8 +53,8 @@ export default function Header() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 flex-shrink-0">
-            <BadgeEuro className="h-8 w-8 text-blue-800" />
-            <span className="font-bold text-lg   font-sans text-blue-800">Stride & Style</span>
+            <Euro className="h-8 w-8 text-blue-800" />
+            <span className="font-bold text-lg font-sans text-blue-800">Stride & Style</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -130,7 +130,7 @@ export default function Header() {
                   {/* Mobile menu header */}
                   <div className="p-6 border-b">
                     <div className="flex items-center space-x-2">
-                      <BadgeEuro className="h-8 w-8 text-blue-800" />
+                      <Euro className="h-8 w-8 text-blue-800" />
                       <span className="font-bold text-xl font-sans text-blue-800">Stride & Style</span>
                     </div>
                   </div>
