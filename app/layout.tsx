@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     title: "Stride & Style - Premium Shoes & Men's Clothing",
     description: "Discover premium shoes and men's clothing at Stride & Style.",
   },
-    generator: 'v0.dev'
+    generator: 'v0.app'
 }
 
 export default function RootLayout({

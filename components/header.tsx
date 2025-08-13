@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { ShoppingCart, Search, Menu, User, X } from "lucide-react"
+import { ShoppingCart, Search, Menu, User, X, BadgeEuro } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { useCart } from "@/hooks/use-cart"
@@ -33,9 +33,7 @@ export default function Header() {
         <div className="container mx-auto px-4">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center space-x-2">
-              <div className="h-8 w-8 rounded-full bg-blue-800 flex items-center justify-center p-2">
-                <span className="text-white font-bold text-sm">S&S</span>
-              </div>
+              <BadgeEuro className="h-8 w-8 text-blue-800" />
               <span className="font-bold text-xl font-sans text-blue-800">Stride & Style</span>
             </div>
             <div className="flex items-center space-x-4">
@@ -55,9 +53,7 @@ export default function Header() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 flex-shrink-0">
-            <div className="h-8 w-8 rounded-full bg-blue-800 flex items-center justify-center p-2">
-              <span className="text-white font-bold text-sm">S&S</span>
-            </div>
+            <BadgeEuro className="h-8 w-8 text-blue-800" />
             <span className="font-bold text-lg   font-sans text-blue-800">Stride & Style</span>
           </Link>
 
@@ -134,9 +130,7 @@ export default function Header() {
                   {/* Mobile menu header */}
                   <div className="p-6 border-b">
                     <div className="flex items-center space-x-2">
-                      <div className="h-8 w-8 rounded-full bg-blue-800 flex items-center justify-center p-2">
-                        <span className="text-white font-bold text-sm">S&S</span>
-                      </div>
+                      <BadgeEuro className="h-8 w-8 text-blue-800" />
                       <span className="font-bold text-xl font-sans text-blue-800">Stride & Style</span>
                     </div>
                   </div>
